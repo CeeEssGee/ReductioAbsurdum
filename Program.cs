@@ -174,6 +174,7 @@ Please enter the product number for the product you wish to delete from inventor
     products.RemoveAt(deletedProduct - 1);
 }
 
+// Select to generate the string
 void UpdateProduct()
 {
     Console.WriteLine(@"Plants: 
@@ -221,7 +222,7 @@ void LookUpByType()
 3 = Enchanted Object
 4 = Wand");
     int userType = int.Parse(Console.ReadLine());
-
+    // where and select
     foreach (Product product in products)
         if (product.ProductTypeId == userType)
         {
@@ -235,18 +236,14 @@ void LookUpByType()
 
 }
 
+
 string ProductDetails(Product product)
 {
-    string productTypeName = "";
-    foreach (ProductType productType in productTypes)
-    {
-        if (productType.Id == product.ProductTypeId)
-        {
-            productTypeName = productType.Name;
-        }
-    }
 
-    string productString = $"{product.Name} {(product.Available ? "is available" : "was sold")} for ${product.Price}, was stocked {product.DaysOnShelf} days ago, and is categorized as type: {productTypeName}";
+    ProductType productTypeName = productTypes.FirstOrDefault(type => product.ProductTypeId == type.Id);
+
+    string productString = $"{product.Name} {(product.Available ? "is available" : "was sold")} for ${product.Price}, was stocked {product.DaysOnShelf} days ago, and is categorized as type: {productTypeName.Name}";
 
     return productString;
 }
+
